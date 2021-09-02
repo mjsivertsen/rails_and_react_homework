@@ -11,14 +11,18 @@ def index
 end
 
 def create
-  item = Book.new(books_params)
+  book = Book.new(books_params)
   if(book.save)
     render json: book
   else
+    puts "dangit"
   end
 end
 
-
+def destroy
+  @book = Book.find(params[:id])
+  render json: @book.destroy
+end
 
 private
 

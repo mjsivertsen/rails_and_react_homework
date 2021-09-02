@@ -16,16 +16,30 @@ const [showForm, setShowForm] = useState (false);
       setBooks(res.data);
       setShowBooks(!showBooks)
     } catch(err){
-      alert("FUCK!")
+      alert("oh crap that didn't work")
     }
   };
 
-  // const addBook = async () => {
-  //   try {
+  const addBook = async (book) => {
+    console.log(book);
+    try {
+      let res = await axios.post("/books", book);
+      console.log(res);
+      setBooks([res.data, ...books]);
+    } catch (err) {
+      alert("oh crap that didn't work!")
+    }
+  };
 
-  //   }
-  // };
-
+  const deleteBook = async (id) => {
+    try{
+    await axios.delete(`/books/${id}`);
+    const sansBookBooks = books.filter((i) => i.id !==id);
+    setBooks(sansBookBooks);
+    } catch{
+      console.log("HellFire!");
+    }
+  };
 
 
   return (
@@ -35,7 +49,7 @@ const [showForm, setShowForm] = useState (false);
     <button onClick={() => setShowForm(!showForm)}>
       {!showForm ? "Add Book" : "Nevermind"}
     </button>
-    {showForm && <BookForm />}
+    {showForm && <BookForm addBookProp={addBook}/>}
 
 
 {/* can't get getBooks to work with the toggle */}
@@ -44,7 +58,7 @@ const [showForm, setShowForm] = useState (false);
     <button onClick={getBooks}>   
       {!showBooks ? "Show Books" : "Hide Books"}
     </button>
-    {showBooks && <Books getBooks={getBooks} books={books}/>}
+    {showBooks && <Books getBooks={getBooks} books={books} deleteBook={deleteBook}/>}
     </div>
   );
 };
