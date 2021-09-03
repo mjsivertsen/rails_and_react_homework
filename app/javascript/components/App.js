@@ -41,22 +41,23 @@ const [showForm, setShowForm] = useState (false);
     }
   };
 
-  // const updateBook = async (id) => {
-  //   try{
-  //     let res = await axios.patch("/books", book);
-  //     console.log(res);
-  //     setBooks([res.data, ...books]);
-  //   }
-  //   catch{
-  //     console.log("Holy Hell!")
-  //   }
-  // }
+  const updateBook = async (book) => {
+    console.log(book);
+    try{  
+      let res = await axios.patch(`/books/${book.id}`, book);
+      let updatedBooks = books.map((b) => (b.id === book.id ? book : b));
+      setBooks(updatedBooks);
+    }
+    catch{
+      console.log("Holy Hell!")
+    }
+  }
 
 
   return (
     <div>
     <h1> App </h1>
-    {getBooks}
+    
     <button onClick={() => setShowForm(!showForm)}>
       {!showForm ? "Add Book" : "Nevermind"}
     </button>
@@ -66,7 +67,7 @@ const [showForm, setShowForm] = useState (false);
     <button onClick={getBooks}>   
       {!showBooks ? "Show Books" : "Hide Books"}
     </button>
-    {showBooks && <Books getBooks={getBooks} books={books} deleteBook={deleteBook}/>}
+    {showBooks && <Books books={books} deleteBook={deleteBook} updateBook={updateBook}/>}
     </div>
   );
 };

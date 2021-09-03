@@ -19,6 +19,14 @@ def create
   end
 end
 
+def update
+  @book = Book.find(params[:id])
+  if(@book.update(books_params))
+    render json: @books
+  else
+  end
+end
+
 def destroy
   @book = Book.find(params[:id])
   render json: @book.destroy
