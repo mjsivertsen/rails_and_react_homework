@@ -27,7 +27,7 @@ const [showForm, setShowForm] = useState (false);
       console.log(res);
       setBooks([res.data, ...books]);
     } catch (err) {
-      alert("oh crap that didn't work!")
+      alert("Jeeeeeez!")
     }
   };
 
@@ -41,6 +41,17 @@ const [showForm, setShowForm] = useState (false);
     }
   };
 
+  // const updateBook = async (id) => {
+  //   try{
+  //     let res = await axios.patch("/books", book);
+  //     console.log(res);
+  //     setBooks([res.data, ...books]);
+  //   }
+  //   catch{
+  //     console.log("Holy Hell!")
+  //   }
+  // }
+
 
   return (
     <div>
@@ -50,9 +61,6 @@ const [showForm, setShowForm] = useState (false);
       {!showForm ? "Add Book" : "Nevermind"}
     </button>
     {showForm && <BookForm addBookProp={addBook}/>}
-
-
-{/* can't get getBooks to work with the toggle */}
     
     
     <button onClick={getBooks}>   

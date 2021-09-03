@@ -10,6 +10,7 @@ const Books = ( {books, getBooks, deleteBook} ) => {
       <Book key={book.id} deleteBook={deleteBook} {...book} /> ))}
     </div>
   );
+
 };
 
 export default Books;

@@ -1,13 +1,16 @@
 import React, {useState} from "react";
 
 const BookForm = (props) => {
-  const [bookTitle, setBookTitle] = useState("");
-  const [bookAuthor, setBookAuthor] = useState("");
+  const [bookTitle, setBookTitle] = useState(props.title ? props.title : "");
+  const [bookAuthor, setBookAuthor] = useState(props.author ? props.author : "");
 
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.addBookProp({
+    // if (props.id) {
+    //   props.updateItem({ id: props.id, bookTitle, bookAuthor});
+    // } else {
+      props.addBookProp({
       title: bookTitle,
       author: bookAuthor});
     };
@@ -27,7 +30,7 @@ const BookForm = (props) => {
       onChange={(e) => {
         setBookAuthor(e.target.value);}}/>
 
-      <button type="submit"> Add </button>
+      <button type="submit">{!props.id ? "Add" : "Update"}</button>
     </form>
     </div>
   );
